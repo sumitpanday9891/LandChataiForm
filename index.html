@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Land chatai  Form</title>
+
+<style>
+body{
+margin:0;
+font-family: Arial, sans-serif;
+background:#eceff1;
+}
+
+.header{
+background:#1976d2;
+color:white;
+padding:15px;
+text-align:center;
+font-size:20px;
+}
+
+.btn{
+display:block;
+margin:20px auto;
+width:90%;
+max-width:400px;
+padding:14px;
+border:none;
+border-radius:10px;
+background:#1976d2;
+color:white;
+font-size:16px;
+}
+
+.card{
+background:white;
+margin:15px auto;
+width:90%;
+max-width:500px;
+padding:20px;
+border-radius:12px;
+box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+
+form{
+display:none;
+}
+
+label{
+font-size:14px;
+margin-top:10px;
+display:block;
+}
+
+input, select{
+width:100%;
+padding:10px;
+margin-top:5px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+input:disabled, select:disabled{
+background:#f5f5f5;
+color:#555;
+}
+
+.submit{
+background:#388e3c;
+color:white;
+margin-top:20px;
+font-size:16px;
+}
+
+/* success box */
+#successBox{
+display:none;
+text-align:center;
+}
+
+#successBox img{
+width:180px;
+margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">Land Chatai Form</div>
+
+<button class="btn" id="openBtn" onclick="openForm()">Open Form</button>
+
+<div class="card">
+<form id="myForm" onsubmit="submitForm(event)">
+
+<label>Name</label>
+<input type="text" id="name" required>
+
+<label>Gender</label>
+<select id="gender" required>
+<option value="">Select</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+
+<label>Date of Birth</label>
+<input type="date" id="dob" onchange="calcAge()" required>
+
+<label>Age</label>
+<input type="number" id="age" readonly>
+
+<label>Village Name</label>
+<input type="text" id="village">
+
+<label>Post Office Name</label>
+<input type="text" id="post">
+
+<label>District</label>
+<input type="text" id="district">
+
+<label>Mobile No</label>
+<input type="tel" id="mobile" pattern="[0-9]{10}" required>
+
+<label>WhatsApp No</label>
+<input type="tel" id="whatsapp" pattern="[0-9]{10}">
+
+<label>Email</label>
+<input type="email" id="email">
+
+<label>Password</label>
+<input type="password" minlength="6" required>
+
+<button class="btn submit" type="submit">Submit</button>
+
+</form>
+</div>
+
+<!-- success -->
+<div class="card" id="successBox">
+<h3>Form Submitted</h3>
+<img src="success.png" alt="Success">
+<p>Thank You</p>
+</div>
+
+<script>
+function openForm(){
+document.getElementById("myForm").style.display = "block";
+document.getElementById("openBtn").style.display = "none";
+}
+
+function calcAge(){
+let d = new Date(document.getElementById("dob").value);
+let t = new Date();
+let a = t.getFullYear() - d.getFullYear();
+let m = t.getMonth() - d.getMonth();
+if(m < 0 || (m === 0 && t.getDate() < d.getDate())){
+a--;
+}
+document.getElementById("age").value = a;
+}
+
+function submitForm(e){
+e.preventDefault();
+
+// lock the form
+let elements = document.querySelectorAll("#myForm input, #myForm select, #myForm button");
+elements.forEach(el => el.disabled = true);
+
+document.getElementById("successBox").style.display = "block";
+}
+</script>
+
+</body>
+</html>
